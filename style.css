@@ -2,12 +2,13 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     height: 85vh;
 }
 
 #header {
     text-align: center;
-    padding: 10
+    padding: 30px
 }
 
 #main-container {
@@ -24,4 +25,13 @@ body {
     align-items: center;
 }
 
+div#results{
+    text-align: center;
+    padding: 20px;
+}
+
+#play-again-btn {
+    display: none;
+    width: 450px;
+}
 
