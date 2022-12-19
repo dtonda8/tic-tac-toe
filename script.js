@@ -1,9 +1,13 @@
 // Create boxes 
-
 const containerDiv = document.querySelector("#main-container");
 
 const addSymbol = (e) => {
-    if (!(e.target.textContent)) e.target.textContent = `${gameBoard.getSymbol()}`;
+    if (!(e.target.textContent)) {
+        let symbol = gameBoard.getSymbol();
+        e.target.textContent = `${symbol}`;
+        gameBoard.updateBoard(e.target.id, symbol);
+        gameBoard.checkForWinner(symbol);
+    } 
 }
 
 for (let i = 0; i < 9; i++) {
@@ -15,11 +19,39 @@ for (let i = 0; i < 9; i++) {
 }
 
 const gameBoard = {
-    board: [[],[],[]],
+    board: [null, null, null, null, null, null, null, null, null],
     turns: 0,
     roundNumber: 0,
     getSymbol: function() {
         this.turns += 1;
-        return (this.turns % 2 == 1) ? "X" : "O";
+        return (this.turns % 2 === 1) ? "X" : "O";
+    },
+    updateBoard: function(index, symbol) {
+        this.board[index] = symbol;
+    },
+    // Logic
+    checkForWinner: function(symbol) {
+
+        let isEqualToSymbol = sym => sym === symbol;
+
+        // Check rows
+        for (let i = 0; i < 3; i++){
+            let r = this.board.slice(i * 3, (i + 1) * 3);
+
+            if (!r.includes(null) && r.every(isEqualToSymbol)) console.log('winner'); 
+        }
+
+        // Check columns
+        let c1 = this.board[0] === this.board[3] && this.board[3] === this.board[6] && this.board[0];
+        let c2 = this.board[1] === this.board[4] && this.board[4] === this.board[7] && this.board[1];
+        let c3 = this.board[2] === this.board[5] && this.board[5] === this.board[8] && this.board[2];
+
+        if (c1 || c2 || c3) console.log('winner');
+
+        // Check diagonals
+        let d1 = this.board[0] === this.board[4] && this.board[4] === this.board[8] && this.board[4];
+        let d2 = this.board[2] === this.board[4] && this.board[4] === this.board[6] && this.board[4];
+
+        if (d1 || d2) console.log('winner');
     }
 }
