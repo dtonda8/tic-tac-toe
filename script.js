@@ -66,10 +66,13 @@ const gameBoard = {
         let d2 = this.board[2] === this.board[4] && this.board[4] === this.board[6] && this.board[4];
 
         if (d1 || d2) this.displayWinner(symbol);
+
+        if (this.turns === 9) this.displayWinner(symbol, true)
     },
-    displayWinner: function (symbol) {
+    displayWinner: function (symbol, isDraw = false) {
         this.isPlaying = false;
-        resultsDiv.textContent = `${symbol} is the Winner!`;
+        if (!isDraw) resultsDiv.textContent = `${symbol} is the Winner!`;
+        else resultsDiv.textContent = `Game ended with draw!`;
         playAgainBtn.style.display = 'block';
     }   
 }
